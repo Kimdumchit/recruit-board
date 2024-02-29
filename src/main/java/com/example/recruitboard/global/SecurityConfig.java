@@ -18,9 +18,13 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+//        httpSecurity.exceptionHandling((auth) -> auth.accessDeniedPage("/error/404")
+//                .authenticationEntryPoint((request, response, authException) -> response.sendRedirect("/login")));
+
+
         httpSecurity.csrf((auth) -> auth.disable());
         httpSecurity.authorizeHttpRequests((auth) -> auth
-                .requestMatchers("/", "/login", "/join", "/joinProc").permitAll()
+                .requestMatchers("/", "/login", "/join", "/joinProc","/recruit").permitAll()
                 .requestMatchers("/admin").hasRole("ADMIN")
                 .requestMatchers("/mypage/**").hasAnyRole("ADMIN", "USER")
                 .anyRequest().authenticated()
@@ -29,6 +33,8 @@ public class SecurityConfig {
         httpSecurity.formLogin((auth) -> auth.loginPage("/login")
                 .loginProcessingUrl("/loginProc")
                 .permitAll());
+
+
 
         return httpSecurity.build();
     }

@@ -1,0 +1,21 @@
+{{>layouts/header}}
+<div class="container">
+    <div class="row">
+        {{#each recruits}}
+            <div class="col-md-4">
+                <div class="card mt-5">
+                    <div class="card-header">
+                        <h5 class="card-title">{{this.title}}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">글쓴이: {{this.author}}</h6>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">현재 참여 인원: {{this.capacity}}</p>
+                        <p class="card-text">최대 인원: {{this.maxCapacity}}</p>
+                        <a href="/recruit/{{this.id}}" class="btn btn-primary">자세히 보기</a>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>
+{{>layouts/footer}}

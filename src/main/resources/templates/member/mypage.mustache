@@ -1,0 +1,32 @@
+{{>layouts/header}}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mt-5">
+                <div class="card-header">
+                    <h2>{{member.username}} 님,  안녕하세요 ! </h2>
+                </div>
+                <div class="card-body">
+                    <p><strong>Email :</strong> {{member.email}}</p>
+                    <p><strong>가입 일자 :</strong> {{member.createdAt}}</p>
+                    <a href="/delete/{{member.memberId}}" class="btn btn-danger btn-sm">탈퇴하기</a>
+                    <a href="/update" class="btn btn-secondary btn-sm">정보수정</a>
+                </div>
+            </div>
+            <div class="card mt-5">
+                <div class="card-header">
+                    <h2>참여한 모집글</h2>
+                </div>
+                <div class="card-body">
+                    {{#recruits}}
+                        <div class="recruit">
+                            <h5><a href="/recruit/{{recruitId}}">{{title}}</a></h5>
+                        </div>
+                    {{/recruits}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

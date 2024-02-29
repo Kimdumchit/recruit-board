@@ -10,7 +10,7 @@ public class MemberDto {
 
         private String email;
 
-        private String nickName;
+        private String username;
 
         private String password;
 
@@ -19,9 +19,10 @@ public class MemberDto {
     }
     @Getter @Setter
     public static class Patch {
-        private String email;
 
-        private String nickName;
+        private String username;
+
+        private String email;
 
         private String password;
     }

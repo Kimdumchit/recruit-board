@@ -1,0 +1,24 @@
+{{>layouts/header}}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form action="/loginProc" method="post" name="loginForm" class="mt-5">
+                <h2>LOGIN</h2>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input id="username" type="text" name="username" placeholder="id" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input id="password" type="password" name="password" placeholder="password" class="form-control"/>
+                </div>
+                <div class="form-group mt-3 d-flex justify-content-between">
+                    <input type="submit" value="login" class="btn btn-primary"/>
+                    <a href="/join" class="btn btn-secondary">join</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
