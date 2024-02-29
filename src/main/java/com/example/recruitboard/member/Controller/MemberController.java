@@ -1,5 +1,6 @@
 package com.example.recruitboard.member.Controller;
 
+import com.example.recruitboard.member.Dto.CustomUserDetails;
 import com.example.recruitboard.member.Dto.MemberDto;
 import com.example.recruitboard.member.Entity.Member;
 import com.example.recruitboard.member.Mapper.MemberMapper;
@@ -7,12 +8,13 @@ import com.example.recruitboard.member.Service.MemberService;
 import com.example.recruitboard.recruit.Entity.Recruit;
 import com.example.recruitboard.recruit.Service.RecruitService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 
 import java.util.List;
 
@@ -37,6 +39,16 @@ public class MemberController {
     @GetMapping("/login")
     public String loginPage(){
         return "member/login";
+    }
+
+    @PostMapping("/loginProc")
+    public String loginProcess(Model model){
+        return "main";
+    }
+
+    @GetMapping("/logout")
+    public String logout(Model model){
+        return "main";
     }
 
     // MemberController.java

@@ -10,7 +10,5 @@ public class AppConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addRedirectViewController("/", "/recruit");
     }
-
-
 }
 

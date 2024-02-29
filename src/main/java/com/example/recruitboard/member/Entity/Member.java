@@ -25,10 +25,8 @@ public class Member extends BaseTimeEntity{
 
     private String role;
 
-    @OneToMany(mappedBy = "member")
-    private List<Recruit> recruits;
+    @ManyToOne
+    @JoinColumn(name = "recruit_id")
+    private Recruit recruit;
 
-    public void addRecruit(Recruit recruit){
-        this.recruits.add(recruit);
-    }
 }

@@ -1,11 +1,13 @@
 package com.example.recruitboard.member.Dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 public class MemberDto {
     @Getter
     @Setter
+    @NoArgsConstructor
     public static class Post {
 
         private String email;

@@ -16,7 +16,16 @@
                         <p><strong>현재 참여 인원:</strong> {{recruit.capacity}}</p>
                         <p><strong>최대 인원:</strong> {{recruit.maxCapacity}}</p>
                     </div>
-                    <a href="/recruit/{{recruit.recruitId}}/join" class="btn btn-primary mt-3">참여하기</a>
+                    {{^isWriter}}
+                        <a href="/recruit/{{recruit.recruitId}}/join" class="btn btn-primary">참여하기</a>
+                    {{/isWriter}}
+                    <div class="mt-3 text-right">
+                        {{#isWriter}}
+                            <a href="/recruit/{{recruit.recruitId}}/edit" class="btn btn-secondary">수정</a>
+                            <a href="/recruit/{{recruit.recruitId}}/delete" class="btn btn-danger ml-2">삭제</a>
+                        {{/isWriter}}
+
+                    </div>
                 </div>
             </div>
         </div>
