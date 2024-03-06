@@ -46,12 +46,11 @@ public class MemberController {
         return "main";
     }
 
-    @GetMapping("/logout")
-    public String logout(Model model){
+    @PostMapping("/logout")
+    public String logout(){
         return "main";
     }
 
-    // MemberController.java
     @GetMapping("/mypage")
     public String myPage(Model model) {
         Member member = memberService.getLoginUser();
@@ -77,6 +76,6 @@ public class MemberController {
     public String updatePage(@PathVariable("memberId") Long memberId, Model model, MemberDto.Patch patch){
         Member findMember = memberService.updateMember(memberId,mapper.memberPatchDtoToEntity(patch));
         model.addAttribute("member", findMember);
-        return "member/mypage";
+        return "redirect:/logout";
     }
 }

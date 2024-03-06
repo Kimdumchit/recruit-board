@@ -5,9 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 public class MemberDto {
-    @Getter
-    @Setter
-    @NoArgsConstructor
+    @Getter @Setter
     public static class Post {
 
         private String email;

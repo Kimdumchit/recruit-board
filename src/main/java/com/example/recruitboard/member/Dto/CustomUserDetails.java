@@ -12,7 +12,7 @@ public class CustomUserDetails implements UserDetails {
     public CustomUserDetails(Member member) {
         this.member = member;
     }
-    @Override //role값을 리턴하는 getAuthorities 메소드
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collection = new ArrayList<>();
         collection.add(new GrantedAuthority() {

@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,8 +26,10 @@ public class Member extends BaseTimeEntity{
 
     private String role;
 
-    @ManyToOne
-    @JoinColumn(name = "recruit_id")
-    private Recruit recruit;
-
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "member_recruit",
+            joinColumns = @JoinColumn(name = "member_id"),
+            inverseJoinColumns = @JoinColumn(name = "recruit_id"))
+    private List<Recruit> recruits = new ArrayList<>();
 }
+

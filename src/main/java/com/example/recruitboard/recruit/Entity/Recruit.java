@@ -26,11 +26,6 @@ public class Recruit extends BaseTimeEntity {
 
     private int capacity = 1;
 
-    @OneToMany(mappedBy = "recruit", fetch = FetchType.LAZY)
-    private List<Member> member = new ArrayList<>();
-
-    public void addMember(Member member) {
-        this.member.add(member);
-        member.setRecruit(this);
-    }
+    @ManyToMany(mappedBy = "recruits", fetch = FetchType.LAZY)
+    private List<Member> members = new ArrayList<>();
 }

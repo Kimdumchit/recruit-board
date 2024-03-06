@@ -23,23 +23,27 @@ public class RecruitService {
     public void createRecruit(Recruit recruit) {
         Member findMember = memberService.getLoginUser();
         recruit.setWriter(findMember.getUsername());
-        recruit.addMember(findMember);
+        recruit.getMembers().add(findMember);
         recruitRepository.save(recruit);
-        findMember.setRecruit(recruit);
+        findMember.getRecruits().add(recruit);
     }
-    public Recruit updateRecruit(Long recruitId, Recruit recruit){
+    public void updateRecruit(Long recruitId, Recruit recruit){
+        Member findMember = memberService.getLoginUser();
         Recruit findRecruit = findVerifiedRecruit(recruitId);
+
+        if(!findRecruit.getWriter().equals(findMember.getUsername())){
+            throw new IllegalArgumentException("작성자만 수정할 수 있습니다.");
+        }
+
         findRecruit.setTitle(recruit.getTitle());
         findRecruit.setContent(recruit.getContent());
         findRecruit.setMaxCapacity(recruit.getMaxCapacity());
-        return findRecruit;
     }
 
     public void joinRecruit(Long recruitId) {
         Member findMember = memberService.getLoginUser();
         Recruit findRecruit = findVerifiedRecruit(recruitId);
-
-        if(findRecruit.getMember().contains(findMember)) {
+        if(findRecruit.getMembers().contains(findMember)){
             throw new IllegalArgumentException("이미 참여한 모집글입니다.");
         }
         if(findRecruit.getCapacity() >= findRecruit.getMaxCapacity()) {
@@ -47,14 +51,14 @@ public class RecruitService {
         }
 
         findRecruit.setCapacity(findRecruit.getCapacity() + 1);
-        findRecruit.addMember(findMember);
-        findMember.setRecruit(findRecruit);
+        findRecruit.getMembers().add(findMember);
+        findMember.getRecruits().add(findRecruit);
         recruitRepository.save(findRecruit);
         memberRepository.save(findMember);
 
     }
     public List<Recruit> getRecruitsByMember(Member member){
-        return recruitRepository.findByMember(member);
+        return recruitRepository.findByMembers(member);
     }
     public Map<String,Object> getRecruit(Long recruitId) {
         Recruit findRecruit = findVerifiedRecruit(recruitId);
@@ -72,12 +76,17 @@ public class RecruitService {
 
     public void deleteRecruit(Long recruitId){
         Recruit findRecruit = findVerifiedRecruit(recruitId);
-        List<Member> members = findRecruit.getMember();
+        List<Member> members = findRecruit.getMembers();
+        if(!findRecruit.getWriter().equals(memberService.getLoginUser().getUsername())){
+            throw new IllegalArgumentException("작성자만 삭제할 수 있습니다.");
+        }
+
         for(Member member : members){
-            member.setRecruit(null);
+            member.getRecruits().remove(findRecruit);
         }
         recruitRepository.deleteById(recruitId);
     }
+
     public List<Recruit> findByTitleContaining(String title) {
         return recruitRepository.findByTitleContaining(title);
     }

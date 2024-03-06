@@ -8,7 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity // Spring Security에 의해 관리된다.
+@EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
@@ -18,9 +18,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-//        httpSecurity.exceptionHandling((auth) -> auth.accessDeniedPage("/error/404")
-//                .authenticationEntryPoint((request, response, authException) -> response.sendRedirect("/login")));
-
 
         httpSecurity.csrf((auth) -> auth.disable());
         httpSecurity.authorizeHttpRequests((auth) -> auth
@@ -34,7 +31,8 @@ public class SecurityConfig {
                 .loginProcessingUrl("/loginProc")
                 .permitAll());
 
-
+        httpSecurity.logout((auth) -> auth.logoutUrl("/logout")
+                .permitAll());
 
         return httpSecurity.build();
     }

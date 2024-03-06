@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public interface RecruitRepository extends JpaRepository<Recruit, Long> {
-    List<Recruit> findByMember(Member member);
+    List<Recruit> findByMembers(Member member);
     List<Recruit> findByTitleContaining(String title);
 }
 

@@ -2,6 +2,7 @@ package com.example.recruitboard.member.Service;
 
 import com.example.recruitboard.member.Entity.Member;
 import com.example.recruitboard.member.Repository.MemberRepository;
+import com.example.recruitboard.recruit.Entity.Recruit;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -25,15 +26,13 @@ public class MemberService {
         if(isExist){
             throw new IllegalArgumentException("이미 존재하는 유저입니다.");
         }
-        member.setEmail(member.getEmail());
         member.setRole("ROLE_USER");
         member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
         memberRepository.save(member);
     }
 
     public void deleteUser(Long memberId){
-        Member findMember = memberRepository.findById(memberId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "해당 유저가 존재하지 않습니다."));
+        Member findMember = findVerifiedMember(memberId);
         memberRepository.delete(findMember);
     }
     public Member getLoginUser(){
@@ -47,7 +46,12 @@ public class MemberService {
         findMember.setUsername(member.getUsername());
         findMember.setEmail(member.getEmail());
         findMember.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
+
+        for(Recruit recruit : findMember.getRecruits()){
+            recruit.setWriter(findMember.getUsername());
+        }
         return memberRepository.save(findMember);
+
     }
 
     public Member findVerifiedMember(long memberId) {

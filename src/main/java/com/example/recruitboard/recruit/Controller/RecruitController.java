@@ -27,6 +27,7 @@ public class RecruitController {
     public String createPage(){
         return "createRecruit";
     }
+
     @PostMapping("/recruit")
     public String createRecruit(RecruitDto.Post post){
         recruitService.createRecruit(mapper.RecruitPostDtoToEntity(post));
@@ -34,7 +35,7 @@ public class RecruitController {
     }
 
     @GetMapping("/")
-    public String getRecruits(Model model, @AuthenticationPrincipal CustomUserDetails userDetails){
+    public String getRecruits(Model model){
         List<Recruit> recruits = recruitService.getRecruits();
         model.addAttribute("recruits", recruits);
         return "main";
